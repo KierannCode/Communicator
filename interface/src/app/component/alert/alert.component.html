@@ -1,0 +1,14 @@
+<div class="flex-container">
+    <div>
+        <div>{{message}}</div>
+        <small *ngIf="alertManager.alertQueue.size > 1">
+            ({{alertManager.alertQueue.size - 1}} more notification{{alertManager.alertQueue.size > 2 ? 's' : ''}})
+        </small>
+    </div>
+    <span class="spacer"></span>
+    <span>
+        <button mat-icon-button (click)="snackBarRef.dismissWithAction()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </span>
+</div>

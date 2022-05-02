@@ -1,0 +1,19 @@
+<div class="flex-container">
+    <div>
+        Logged as {{navbarManager.user!.username}}
+    </div>
+    <div>
+        <button mat-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #userMenu hasBackdrop="false" xPosition="before" yPosition="below">
+            <button mat-menu-item (click)="navbarManager.openAccountModal()">
+                Account
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logOut()">
+                Log out
+            </button>
+        </mat-menu>
+    </div>
+</div>

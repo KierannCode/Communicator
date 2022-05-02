@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+    <span>Communicator</span>
+    <span class="spacer"></span>
+    <app-user-menu *ngIf="navbarManager.user"></app-user-menu>
+    <app-log-in-menu *ngIf="!navbarManager.user"></app-log-in-menu>
+</mat-toolbar>

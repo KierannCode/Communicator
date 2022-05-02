@@ -1,0 +1,45 @@
+<button mat-button [matMenuTriggerFor]="logInMenu">
+    <h2>Log in</h2>
+</button>
+<mat-menu #logInMenu xPosition="before" yPosition="below">
+    <div (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()" class="flex-form flex-align-center">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" [formControl]="logInFormControl.username" (keydown.enter)="submitLogIn()">
+            </mat-form-field>
+            <small *ngIf="logInFormControl.username.errors != null">
+                <mat-error *ngFor="let message of logInFormControl.username.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [formControl]="logInFormControl.rawPassword"
+                    (keydown.enter)="submitLogIn()">
+            </mat-form-field>
+            <small *ngIf="logInFormControl.rawPassword.errors != null">
+                <mat-error *ngFor="let message of logInFormControl.rawPassword.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div>
+            <button mat-raised-button color="accent" (click)="submitLogIn()">
+                <mat-spinner *ngIf="!logInProgress.isOver()" diameter="30" color></mat-spinner>
+                <div *ngIf="logInProgress.isOver()">Log in</div>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+            <span>Don't have an account ?</span>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" (click)="openSignUpModal()">
+                Sign up
+            </button>
+        </div>
+    </div>
+</mat-menu>

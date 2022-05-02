@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>Account registration</h2>
+<mat-dialog-content>
+    <div class="flex-form">
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Username *</mat-label>
+                <input matInput type="text" [formControl]="signUpFormControl.username" (keydown.enter)="submitSignUp()">
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.username.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.username.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Password *</mat-label>
+                <input matInput type="password" [formControl]="signUpFormControl.rawPassword"
+                    (keydown.enter)="submitSignUp()">
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.rawPassword.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.rawPassword.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Password confirmation</mat-label>
+                <input matInput type="password" [formControl]="signUpFormControl.passwordConfirmation"
+                    (keydown.enter)="submitSignUp()">
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.passwordConfirmation.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.passwordConfirmation.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [formControl]="signUpFormControl.email" (keydown.enter)="submitSignUp()">
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.email.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.email.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>About you</mat-label>
+                <textarea matInput [formControl]="signUpFormControl.description"
+                    (keydown.enter)="submitSignUp()"></textarea>
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.description.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.description.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Gender</mat-label>
+                <mat-select [formControl]="signUpFormControl.gender">
+                    <mat-option></mat-option>
+                    <mat-option value="MALE">Male</mat-option>
+                    <mat-option value="FEMALE">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <small *ngIf="signUpFormControl.gender.errors != null">
+                <mat-error *ngFor="let message of signUpFormControl.gender.errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" (click)="submitSignUp()">
+        <mat-spinner *ngIf="!signUpProgress.isOver()" diameter="30" color></mat-spinner>
+        <div *ngIf="signUpProgress.isOver()">Sign up</div>
+    </button>
+</mat-dialog-actions>

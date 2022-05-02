@@ -1,0 +1,90 @@
+<h2 class="flex-container flex-align-center">
+    <div>Account details</div>
+    <div class="spacer"></div>
+    <div>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</h2>
+<mat-dialog-content>
+    <div class="flex-form">
+        <div *ngIf="!userUpdateData.updatedFields?.includes('username')">
+            <span>Username : {{navbarManager.user?.username}}</span>
+            <span>
+                <button mat-icon-button (click)="allowUpdate('username')">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </span>
+        </div>
+        <div *ngIf="userUpdateData.updatedFields?.includes('username')">
+            <div class="flex-container flex-align-center">
+                <span class="w-100">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Username *</mat-label>
+                        <input matInput type="text" [formControl]="userUpdateFormControl['username']"
+                            (keydown.enter)="submitUserUpdate()">
+                    </mat-form-field>
+                </span>
+                <span>
+                    <button mat-icon-button (click)="discardUpdate('username')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </span>
+            </div>
+            <small *ngIf="userUpdateFormControl['username'].errors != null">
+                <mat-error *ngFor="let message of userUpdateFormControl['username'].errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div *ngIf="!userUpdateData.updatedFields?.includes('rawPassword')">
+            <span>
+                <button mat-button (click)="allowUpdate('rawPassword')">
+                    Change password
+                </button>
+            </span>
+        </div>
+        <div *ngIf="userUpdateData.updatedFields?.includes('rawPassword')">
+            <div class="flex-container flex-align-center">
+                <span class="w-100">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Password *</mat-label>
+                        <input matInput type="password" [formControl]="userUpdateFormControl['rawPassword']"
+                            (keydown.enter)="submitUserUpdate()">
+                    </mat-form-field>
+                </span>
+                <span>
+                    <button mat-icon-button (click)="discardUpdate('rawPassword')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </span>
+            </div>
+            <small *ngIf="userUpdateFormControl['rawPassword'].errors != null">
+                <mat-error *ngFor="let message of userUpdateFormControl['rawPassword'].errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+        <div *ngIf="userUpdateData.updatedFields?.includes('rawPassword')">
+            <span class="w-100">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Password confirmation</mat-label>
+                    <input matInput type="password" [formControl]="userUpdateFormControl['passwordConfirmation']"
+                        (keydown.enter)="submitUserUpdate()">
+                </mat-form-field>
+            </span>
+            <small *ngIf="userUpdateFormControl['passwordConfirmation'].errors != null">
+                <mat-error *ngFor="let message of userUpdateFormControl['passwordConfirmation'].errors['list']">
+                    {{message}}
+                </mat-error>
+            </small>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="accent" *ngIf="userUpdateData.updatedFields!.length > 0" (click)="submitUpdate()">
+        <mat-spinner *ngIf="!userUpdateProgress.isOver()" diameter="30" color></mat-spinner>
+        <div *ngIf="userUpdateProgress.isOver()">Save</div>
+    </button>
+</mat-dialog-actions>
